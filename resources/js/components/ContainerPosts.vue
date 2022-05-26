@@ -1,6 +1,12 @@
 <template>
     <div class="container">
         <div class="row mb-3">
+            <div class="col">
+                <h1>Posts</h1>
+                <h5>Total posts: {{ totalPosts }}</h5>
+            </div>
+        </div>
+        <div class="row mb-3">
             <div class="col-12 mb-3" v-for="post in posts" :key="post.id">
                 <div class="card">
                     <img v-if="post.image" :src="post.image" class="card-img-top" :alt="post.title">
@@ -58,6 +64,7 @@ export default {
             lastPageUrl: null,
             prevPageUrl: null,
             nextPageUrl: null,
+            totalPosts: null,
         }
     },
     created() {
@@ -75,6 +82,7 @@ export default {
                     this.lastPageUrl = response.data.results.last_page_url;
                     this.prevPageUrl = response.data.results.prev_page_url;
                     this.nextPageUrl = response.data.results.next_page_url;
+                    this.totalPosts = response.data.results.total;
                 });
             }
         }

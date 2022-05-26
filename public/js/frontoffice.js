@@ -1955,6 +1955,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ContainerPosts',
   data: function data() {
@@ -1966,7 +1972,8 @@ __webpack_require__.r(__webpack_exports__);
       fistPageUrl: null,
       lastPageUrl: null,
       prevPageUrl: null,
-      nextPageUrl: null
+      nextPageUrl: null,
+      totalPosts: null
     };
   },
   created: function created() {
@@ -1985,6 +1992,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.lastPageUrl = response.data.results.last_page_url;
           _this.prevPageUrl = response.data.results.prev_page_url;
           _this.nextPageUrl = response.data.results.next_page_url;
+          _this.totalPosts = response.data.results.total;
         });
       }
     }
@@ -38251,6 +38259,14 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row mb-3" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h1", [_vm._v("Posts")]),
+        _vm._v(" "),
+        _c("h5", [_vm._v("Total posts: " + _vm._s(_vm.totalPosts))]),
+      ]),
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row mb-3" },
