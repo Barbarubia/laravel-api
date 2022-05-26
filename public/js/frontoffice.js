@@ -1914,8 +1914,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'ContainerPosts'
+  name: 'ContainerPosts',
+  data: function data() {
+    return {
+      posts: [],
+      baseApiUrl: 'http://localhost:8000/api/posts'
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    Axios.get(this.baseApiUrl).then(function (response) {
+      _this.posts = response.data.results.data;
+    });
+  }
 });
 
 /***/ }),
@@ -37532,7 +37556,44 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Posts\n")])
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      { staticClass: "row" },
+      _vm._l(_vm.posts, function (post) {
+        return _c("div", { key: post.id, staticClass: "col-12 mb-3" }, [
+          _c("div", { staticClass: "card" }, [
+            post.image
+              ? _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: { src: post.image, alt: post.title },
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body" }, [
+              _c("h3", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(post.title)),
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(_vm._s(post.content)),
+              ]),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: "/posts/" + post.slug },
+                },
+                [_vm._v("View post")]
+              ),
+            ]),
+          ]),
+        ])
+      }),
+      0
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
