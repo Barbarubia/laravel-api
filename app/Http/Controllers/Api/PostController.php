@@ -13,12 +13,23 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $attributes = $request->all();
+
+        if (array_key_exists('home', $attributes)) {
+            return response()->json([
+                'success'   => true,
+                'results'   => [
+                    'data'  => Post::orderBy('id', 'desc')->limit(5)->get(),
+                ]
+            ]);
+        }
+
         $posts = Post::paginate(10);
 
 	    return response()->json([
-            'status' => 'success',
+            'success' => true,
             'results' => $posts
 	    ]);
     }
