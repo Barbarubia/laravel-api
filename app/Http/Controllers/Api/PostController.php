@@ -8,6 +8,8 @@ use App\Post;
 
 class PostController extends Controller
 {
+    use \App\Traits\postsFilters;
+
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +28,9 @@ class PostController extends Controller
             ]);
         }
 
-        $posts = Post::with(['user', 'category', 'tags'])->paginate(10);
+        $posts = $this->composeQuery($request);
+
+        $posts = $posts->with(['user', 'category', 'tags'])->paginate(10);
 
 	    return response()->json([
             'success' => true,
