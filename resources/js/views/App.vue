@@ -1,16 +1,16 @@
 <template>
     <div>
-        <container-posts />
+        <routes-links />
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-import ContainerPosts from  '../components/ContainerPosts.vue';
+import RoutesLinks from  '../components/RoutesLinks.vue';
 export default {
     name: 'App',
     components: {
-        ContainerPosts,
+        RoutesLinks,
     }
 }
 </script>
