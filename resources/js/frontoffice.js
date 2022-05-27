@@ -34,10 +34,37 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './views/App.vue';
 
+import PageHome from './pages/PageHome.vue';
+import PageAbout from './pages/PageAbout.vue';
+import PostIndex from './pages/PostIndex.vue';
+import PostShow from './pages/PostShow.vue';
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-
+    // definizione delle routes
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: PageHome,
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: PageAbout,
+        },
+        {
+            path: '/blog',
+            name: 'postIndex',
+            component: PostIndex,
+        },
+        {
+            path: '/blog/:slug',
+            name: 'postShow',
+            component: PostShow,
+        },
+    ]
 });
 //
 
