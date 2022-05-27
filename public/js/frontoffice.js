@@ -2004,6 +2004,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ContainerPosts',
   data: function data() {
@@ -2048,6 +2056,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38694,11 +38710,42 @@ var render = function () {
               "div",
               { staticClass: "card-body" },
               [
-                _c("h3", { staticClass: "card-title" }, [
+                _c("h3", { staticClass: "card-title text-capitalize" }, [
                   _vm._v(_vm._s(post.title)),
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
+                _c("small", [_vm._v("Author: " + _vm._s(post.user.name))]),
+                _c("br"),
+                _vm._v(" "),
+                _c("small", { staticClass: "mt-0" }, [
+                  _vm._v("Category: " + _vm._s(post.category.category)),
+                ]),
+                _vm._v(" "),
+                post.tags.length > 0
+                  ? _c(
+                      "small",
+                      [
+                        _c("br"),
+                        _vm._v(
+                          "\n                        Tags:\n                        "
+                        ),
+                        _vm._l(post.tags, function (tag) {
+                          return _c(
+                            "span",
+                            {
+                              key: tag.id,
+                              staticClass:
+                                "bg-primary rounded text-white px-2 py-1 mx-1",
+                            },
+                            [_vm._v(_vm._s(tag.name))]
+                          )
+                        }),
+                      ],
+                      2
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text mt-3" }, [
                   _vm._v(_vm._s(_vm.getExcerpt(post.content))),
                 ]),
                 _vm._v(" "),
@@ -38779,11 +38826,42 @@ var render = function () {
               "div",
               { staticClass: "card-body" },
               [
-                _c("h3", { staticClass: "card-title" }, [
+                _c("h3", { staticClass: "card-title text-capitalize" }, [
                   _vm._v(_vm._s(post.title)),
                 ]),
                 _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
+                _c("small", [_vm._v("Author: " + _vm._s(post.user.name))]),
+                _c("br"),
+                _vm._v(" "),
+                _c("small", { staticClass: "mt-0" }, [
+                  _vm._v("Category: " + _vm._s(post.category.category)),
+                ]),
+                _vm._v(" "),
+                post.tags.length > 0
+                  ? _c(
+                      "small",
+                      [
+                        _c("br"),
+                        _vm._v(
+                          "\n                        Tags:\n                        "
+                        ),
+                        _vm._l(post.tags, function (tag) {
+                          return _c(
+                            "span",
+                            {
+                              key: tag.id,
+                              staticClass:
+                                "bg-primary rounded text-white px-2 py-1 mx-1",
+                            },
+                            [_vm._v(_vm._s(tag.name))]
+                          )
+                        }),
+                      ],
+                      2
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text mt-3" }, [
                   _vm._v(_vm._s(_vm.getExcerpt(post.content))),
                 ]),
                 _vm._v(" "),

@@ -11,8 +11,16 @@
                 <div class="card">
                     <img v-if="post.image" :src="post.image" class="card-img-top" :alt="post.title">
                     <div class="card-body">
-                        <h3 class="card-title">{{ post.title }}</h3>
-                        <p class="card-text">{{ getExcerpt(post.content) }}</p>
+                        <h3 class="card-title text-capitalize">{{ post.title }}</h3>
+                        <small>Author: {{ post.user.name }}</small><br>
+                        <small class="mt-0">Category: {{ post.category.category }}</small>
+                        <small v-if="post.tags.length > 0">
+                            <br>
+                            Tags:
+                            <span v-for="tag in post.tags" :key="tag.id" class="bg-primary rounded text-white px-2 py-1 mx-1">{{ tag.name }}</span>
+                        </small>
+
+                        <p class="card-text mt-3">{{ getExcerpt(post.content) }}</p>
                         <router-link :to="{name: 'postShow', params: {slug: post.slug}}" class="btn btn-primary">View post</router-link>
                     </div>
                 </div>

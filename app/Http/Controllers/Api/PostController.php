@@ -21,12 +21,12 @@ class PostController extends Controller
             return response()->json([
                 'success'   => true,
                 'results'   => [
-                    'data'  => Post::orderBy('id', 'desc')->limit(5)->get(),
+                    'data'  => Post::with(['user', 'category', 'tags'])->orderBy('id', 'desc')->limit(5)->get(),
                 ]
             ]);
         }
 
-        $posts = Post::paginate(10);
+        $posts = Post::with(['user', 'category', 'tags'])->paginate(10);
 
 	    return response()->json([
             'success' => true,
