@@ -38514,24 +38514,31 @@ var render = function () {
                 })
               : _vm._e(),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h3", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(post.title)),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(_vm._s(post.content)),
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { href: "/posts/" + post.slug },
-                },
-                [_vm._v("View post")]
-              ),
-            ]),
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(post.title)),
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(_vm._s(post.content)),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: {
+                      to: { name: "postShow", params: { slug: post.slug } },
+                    },
+                  },
+                  [_vm._v("View post")]
+                ),
+              ],
+              1
+            ),
           ]),
         ])
       }),
@@ -38592,24 +38599,31 @@ var render = function () {
                 })
               : _vm._e(),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("h3", { staticClass: "card-title" }, [
-                _vm._v(_vm._s(post.title)),
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(_vm._s(post.content)),
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { href: "/posts/" + post.slug },
-                },
-                [_vm._v("View post")]
-              ),
-            ]),
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c("h3", { staticClass: "card-title" }, [
+                  _vm._v(_vm._s(post.title)),
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(_vm._s(post.content)),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: {
+                      to: { name: "postShow", params: { slug: post.slug } },
+                    },
+                  },
+                  [_vm._v("View post")]
+                ),
+              ],
+              1
+            ),
           ]),
         ])
       }),

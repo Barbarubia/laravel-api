@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <h3 class="card-title">{{ post.title }}</h3>
                         <p class="card-text">{{ post.content }}</p>
-                        <a :href="'/posts/' + post.slug" class="btn btn-primary">View post</a>
+                        <router-link :to="{name: 'postShow', params: {slug: post.slug}}" class="btn btn-primary">View post</router-link>
                     </div>
                 </div>
             </div>
