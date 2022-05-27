@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    use \App\Traits\postsFilters;
+
     protected $validationParameters = [
         'title'         => 'required|max:100',
         'slug'          => 'required|unique:posts|max:105',
@@ -30,27 +32,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::whereRaw('1 = 1');
-
-        // if ($request->search) {
-        //     $posts->where('title', 'LIKE', "%$request->search%");
-        // }
-
-        // Stringa di ricerca sia nel titolo che nel contenuto del post
-        if ($request->search) {
-            $posts->where(function($query) use ($request) {
-                $query->where('title', 'LIKE', "%$request->search%")
-                    ->orWhere('content', 'LIKE', "%$request->search%");
-            });
-        }
-
-        if ($request->category) {
-            $posts->where('category_id', $request->category);
-        }
-
-        if ($request->author) {
-            $posts->where('user_id', $request->author);
-        }
+        $posts= $this->composeQuery($request);
 
         $posts = $posts->paginate(25);
 
