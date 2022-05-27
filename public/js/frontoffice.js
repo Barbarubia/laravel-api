@@ -2166,6 +2166,52 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostShow',
   props: ['slug'],
@@ -38857,9 +38903,76 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("h1", [_vm._v(_vm._s(_vm.post.title))]),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h1", { staticClass: "text-capitalize" }, [
+          _vm._v(_vm._s(_vm.post.title)),
+        ]),
+      ]),
+    ]),
     _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.post.content))]),
+    _c("div", { staticClass: "row d-flex justify-content-between mb-3" }, [
+      _c("div", { staticClass: "col-3 p-3" }, [
+        _c("h6", [_vm._v("Info post:")]),
+        _vm._v(" "),
+        _c("small", [
+          _vm._v("Category: " + _vm._s(_vm.post.category.category)),
+        ]),
+        _c("br"),
+        _vm._v(" "),
+        _c(
+          "small",
+          [
+            _vm._v("Tags:\n                        "),
+            _vm._l(_vm.post.tags, function (tag) {
+              return _c(
+                "span",
+                { staticClass: "bg-primary rounded text-white px-2 py-1" },
+                [_vm._v(_vm._s(tag.name))]
+              )
+            }),
+          ],
+          2
+        ),
+        _c("br"),
+        _vm._v(" "),
+        _c("small", [_vm._v("Created: " + _vm._s(_vm.post.created_at))]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm.post.updated_at != _vm.post.created_at
+          ? _c("small", [_vm._v("Last update: " + _vm._s(_vm.post.updated_at))])
+          : _vm._e(),
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-3 bg-white border border-info border-5 p-3" },
+        [
+          _c("h6", [_vm._v("About the author:")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "d-flex justify-content-between" }, [
+            _c("div", [
+              _c("small", [_vm._v("Name: " + _vm._s(_vm.post.user.name))]),
+              _c("br"),
+            ]),
+          ]),
+        ]
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _vm.post.image != null
+          ? _c("img", {
+              staticClass: "mb-3",
+              attrs: { src: _vm.post.image, alt: _vm.post.title },
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.post.content))]),
+      ]),
+    ]),
   ])
 }
 var staticRenderFns = []
