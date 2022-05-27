@@ -11,7 +11,7 @@
                     <img v-if="post.image" :src="post.image" class="card-img-top" :alt="post.title">
                     <div class="card-body">
                         <h3 class="card-title">{{ post.title }}</h3>
-                        <p class="card-text">{{ post.content }}</p>
+                        <p class="card-text">{{ getExcerpt(post.content) }}</p>
                         <router-link :to="{name: 'postShow', params: {slug: post.slug}}" class="btn btn-primary">View post</router-link>
                     </div>
                 </div>
@@ -27,6 +27,8 @@ export default {
         return {
             posts: [],
             baseApiUrl: 'http://localhost:8000/api/posts?home',
+
+            excerptMaxLength: 500,
         }
     },
     created() {
@@ -39,6 +41,14 @@ export default {
                 .then(response => {
                     this.posts =  response.data.results.data;
                 });
+            }
+        },
+        // metodo che visualizza solo una parte del contenuto del post se il testo è troppo lungo
+        getExcerpt(content) {
+            if (content.length > this.excerptMaxLength) {
+                return content.substring(0, this.excerptMaxLength) + '...';
+            } else {
+                return content;
             }
         }
     }

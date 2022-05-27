@@ -2009,7 +2009,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       posts: [],
-      baseApiUrl: 'http://localhost:8000/api/posts?home'
+      baseApiUrl: 'http://localhost:8000/api/posts?home',
+      excerptMaxLength: 500
     };
   },
   created: function created() {
@@ -2023,6 +2024,14 @@ __webpack_require__.r(__webpack_exports__);
         Axios.get(url).then(function (response) {
           _this.posts = response.data.results.data;
         });
+      }
+    },
+    // metodo che visualizza solo una parte del contenuto del post se il testo è troppo lungo
+    getExcerpt: function getExcerpt(content) {
+      if (content.length > this.excerptMaxLength) {
+        return content.substring(0, this.excerptMaxLength) + '...';
+      } else {
+        return content;
       }
     }
   }
@@ -2104,7 +2113,8 @@ __webpack_require__.r(__webpack_exports__);
       lastPageUrl: null,
       prevPageUrl: null,
       nextPageUrl: null,
-      totalPosts: null
+      totalPosts: null,
+      excerptMaxLength: 500
     };
   },
   created: function created() {
@@ -2125,6 +2135,14 @@ __webpack_require__.r(__webpack_exports__);
           _this.nextPageUrl = response.data.results.next_page_url;
           _this.totalPosts = response.data.results.total;
         });
+      }
+    },
+    // metodo che visualizza solo una parte del contenuto del post se il testo è troppo lungo
+    getExcerpt: function getExcerpt(content) {
+      if (content.length > this.excerptMaxLength) {
+        return content.substring(0, this.excerptMaxLength) + '...';
+      } else {
+        return content;
       }
     }
   }
@@ -38634,7 +38652,7 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c("p", { staticClass: "card-text" }, [
-                  _vm._v(_vm._s(post.content)),
+                  _vm._v(_vm._s(_vm.getExcerpt(post.content))),
                 ]),
                 _vm._v(" "),
                 _c(
@@ -38719,7 +38737,7 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c("p", { staticClass: "card-text" }, [
-                  _vm._v(_vm._s(post.content)),
+                  _vm._v(_vm._s(_vm.getExcerpt(post.content))),
                 ]),
                 _vm._v(" "),
                 _c(
