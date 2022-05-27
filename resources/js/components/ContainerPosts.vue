@@ -2,50 +2,9 @@
     <div class="container">
         <div class="row mb-3">
             <div class="col">
-                <h1>Posts</h1>
-                <h5>Total posts: {{ totalPosts }}</h5>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-12 mb-3" v-for="post in posts" :key="post.id">
-                <div class="card">
-                    <img v-if="post.image" :src="post.image" class="card-img-top" :alt="post.title">
-                    <div class="card-body">
-                        <h3 class="card-title">{{ post.title }}</h3>
-                        <p class="card-text">{{ post.content }}</p>
-                        <a :href="'/posts/' + post.slug" class="btn btn-primary">View post</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Numero pagina visualizzata -->
-        <div class="row">
-            <div class="col text-center">
-                <span>Page {{ nCurrentPage }} of {{ nLastPage }}</span>
-            </div>
-        </div>
-        <!-- Navigazione tra le pagine -->
-        <div class="row">
-            <div class="col text-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item" :class="{disabled: nCurrentPage == 1}" @click="getData(firstPageUrl)">
-                            <a class="page-link">First</a>
-                        </li>
-
-                        <li class="page-item" :class="{disabled: !prevPageUrl}" @click="getData(prevPageUrl)">
-                            <a class="page-link">Previous</a>
-                        </li>
-
-                        <li class="page-item" :class="{disabled: !nextPageUrl}" @click="getData(nextPageUrl)">
-                            <a class="page-link">Next</a>
-                        </li>
-
-                        <li class="page-item" :class="{disabled: nCurrentPage == nLastPage}" @click="getData(lastPageUrl)">
-                            <a class="page-link">Last</a>
-                        </li>
-                    </ul>
-                </nav>
+                <router-link :to="{name: 'home'}">Home</router-link>
+                <router-link :to="{name: 'postIndex'}">Blog</router-link>
+                <router-link :to="{name: 'about'}">About</router-link>
             </div>
         </div>
     </div>
