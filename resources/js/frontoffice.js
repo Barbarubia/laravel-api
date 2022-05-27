@@ -68,7 +68,7 @@ const router = new VueRouter({
             props: true,
         },
         {
-            path: '/404',
+            path: '*',
             name: 'error404',
             component: Error404,
         },

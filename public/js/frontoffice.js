@@ -54441,7 +54441,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     component: _pages_PostShow_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
     props: true
   }, {
-    path: '/404',
+    path: '*',
     name: 'error404',
     component: _pages_Error404_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }]
