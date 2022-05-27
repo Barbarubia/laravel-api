@@ -2117,6 +2117,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ContainerPosts',
   data: function data() {
@@ -2130,6 +2140,7 @@ __webpack_require__.r(__webpack_exports__);
       prevPageUrl: null,
       nextPageUrl: null,
       totalPosts: null,
+      selectedPage: null,
       excerptMaxLength: 500
     };
   },
@@ -2144,6 +2155,7 @@ __webpack_require__.r(__webpack_exports__);
         Axios.get(url).then(function (response) {
           _this.posts = response.data.results.data;
           _this.nCurrentPage = response.data.results.current_page;
+          _this.selectedPage = _this.nCurrentPage;
           _this.nLastPage = response.data.results.last_page;
           _this.firstPageUrl = response.data.results.first_page_url;
           _this.lastPageUrl = response.data.results.last_page_url;
@@ -38884,11 +38896,54 @@ var render = function () {
       0
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "row mb-3" }, [
       _c("div", { staticClass: "col text-center" }, [
         _c("span", [
+          _vm._v("Page\n                "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedPage,
+                  expression: "selectedPage",
+                },
+              ],
+              attrs: { name: "page", id: "page" },
+              on: {
+                change: [
+                  function ($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function (o) {
+                        return o.selected
+                      })
+                      .map(function (o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedPage = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function ($event) {
+                    return _vm.getData(
+                      _vm.baseApiUrl + "?page=" + _vm.selectedPage
+                    )
+                  },
+                ],
+              },
+            },
+            _vm._l(_vm.nLastPage, function (page) {
+              return _c("option", { key: page, domProps: { value: page } }, [
+                _vm._v(_vm._s(page)),
+              ])
+            }),
+            0
+          ),
           _vm._v(
-            "Page " + _vm._s(_vm.nCurrentPage) + " of " + _vm._s(_vm.nLastPage)
+            "\n                of " + _vm._s(_vm.nLastPage) + "\n            "
           ),
         ]),
       ]),

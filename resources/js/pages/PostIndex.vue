@@ -27,9 +27,19 @@
             </div>
         </div>
         <!-- Numero pagina visualizzata -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col text-center">
                 <span>Page {{ nCurrentPage }} of {{ nLastPage }}</span>
+            </div>
+        </div> -->
+        <div class="row mb-3">
+            <div class="col text-center">
+                <span>Page
+                    <select name="page" id="page" v-model="selectedPage" @change="getData(baseApiUrl + '?page=' + selectedPage)">
+                        <option v-for="page in nLastPage" :key="page" :value="page">{{ page }}</option>
+                    </select>
+                    of {{ nLastPage }}
+                </span>
             </div>
         </div>
         <!-- Navigazione tra le pagine -->
@@ -74,6 +84,8 @@ export default {
             nextPageUrl: null,
             totalPosts: null,
 
+            selectedPage: null,
+
             excerptMaxLength: 500,
         }
     },
@@ -87,6 +99,7 @@ export default {
                 .then(response => {
                     this.posts =  response.data.results.data;
                     this.nCurrentPage = response.data.results.current_page;
+                    this.selectedPage = this.nCurrentPage;
                     this.nLastPage = response.data.results.last_page;
                     this.firstPageUrl = response.data.results.first_page_url;
                     this.lastPageUrl = response.data.results.last_page_url;
@@ -103,7 +116,7 @@ export default {
             } else {
                 return content;
             }
-        }
+        },
     }
 }
 </script>
