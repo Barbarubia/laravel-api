@@ -2212,6 +2212,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostShow',
   props: ['slug'],
@@ -38920,21 +38921,28 @@ var render = function () {
         ]),
         _c("br"),
         _vm._v(" "),
-        _c(
-          "small",
-          [
-            _vm._v("Tags:\n                        "),
-            _vm._l(_vm.post.tags, function (tag) {
-              return _c(
-                "span",
-                { staticClass: "bg-primary rounded text-white px-2 py-1" },
-                [_vm._v(_vm._s(tag.name))]
-              )
-            }),
-          ],
-          2
-        ),
-        _c("br"),
+        _vm.post.tags.length > 0
+          ? _c(
+              "small",
+              [
+                _vm._v("Tags:\n                    "),
+                _vm._l(_vm.post.tags, function (tag) {
+                  return _c(
+                    "span",
+                    {
+                      key: tag.id,
+                      staticClass:
+                        "bg-primary rounded text-white px-2 py-1 mx-1",
+                    },
+                    [_vm._v(_vm._s(tag.name))]
+                  )
+                }),
+                _vm._v(" "),
+                _c("br"),
+              ],
+              2
+            )
+          : _vm._e(),
         _vm._v(" "),
         _c("small", [_vm._v("Created: " + _vm._s(_vm.post.created_at))]),
         _vm._v(" "),

@@ -9,11 +9,10 @@
             <div class="col-3 p-3">
                 <h6>Info post:</h6>
                 <small>Category: {{ post.category.category }}</small><br>
-                <!-- @if ($post->tags->all()) -->
-                    <small>Tags:
-                            <span v-for="tag in post.tags" class="bg-primary rounded text-white px-2 py-1">{{ tag.name }}</span>
-                    </small><br>
-                <!-- @endif -->
+                <small v-if="post.tags.length > 0">Tags:
+                        <span v-for="tag in post.tags" :key="tag.id" class="bg-primary rounded text-white px-2 py-1 mx-1">{{ tag.name }}</span>
+                        <br>
+                </small>
                 <small>Created: {{ post.created_at }}</small>
                     <br>
                     <small v-if="post.updated_at != post.created_at">Last update: {{ post.updated_at }}</small>
@@ -23,6 +22,8 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <small>Name: {{ post.user.name }}</small><br>
+                        <!-- TODO: inserire info utente (città, età, avatar) -->
+
                         <!-- @if ($post->user->userInfo->city)
                             <small>From: {{ $post->user->userInfo->city }}</small><br>
                         @endif
