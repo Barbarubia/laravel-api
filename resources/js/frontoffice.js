@@ -43,6 +43,7 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
     // definizione delle routes
+    mode: 'history', // Toglie l'hashtag che VueRouter mette di default (es: /#/home)
     routes: [
         {
             path: '/',

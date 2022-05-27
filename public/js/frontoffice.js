@@ -1961,6 +1961,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ContainerPosts',
   data: function data() {
@@ -38260,6 +38267,27 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row mb-3" }, [
+      _c(
+        "div",
+        { staticClass: "col" },
+        [
+          _c("router-link", { attrs: { to: { name: "home" } } }, [
+            _vm._v("Home"),
+          ]),
+          _vm._v(" "),
+          _c("router-link", { attrs: { to: { name: "postIndex" } } }, [
+            _vm._v("Blog"),
+          ]),
+          _vm._v(" "),
+          _c("router-link", { attrs: { to: { name: "about" } } }, [
+            _vm._v("About"),
+          ]),
+        ],
+        1
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mb-3" }, [
       _c("div", { staticClass: "col" }, [
         _c("h1", [_vm._v("Posts")]),
         _vm._v(" "),
@@ -53972,6 +54000,8 @@ window.Axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   // definizione delle routes
+  mode: 'history',
+  // Toglie l'hashtag che VueRouter mette di default (es: /#/home)
   routes: [{
     path: '/',
     name: 'home',
