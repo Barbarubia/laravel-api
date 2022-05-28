@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
+use App\Tag;
+use App\User;
 
 class PostController extends Controller
 {
@@ -32,9 +35,22 @@ class PostController extends Controller
 
         $posts = $posts->with(['user', 'category', 'tags'])->paginate(10);
 
+        $queries = $request->query();
+        unset($queries['page']);
+        $posts->withPath('?' . http_build_query($queries, '', '&'));
+
+        $categories = Category::all();
+
+        $users = User::all();
+
+        $tags = Tag::all();
+
 	    return response()->json([
-            'success' => true,
-            'results' => $posts
+            'success'       => true,
+            'results'       => $posts,
+            'categories'    => $categories,
+            'users'         => $users,
+            'tags'          => $tags,
 	    ]);
     }
 

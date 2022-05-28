@@ -2127,10 +2127,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ContainerPosts',
   data: function data() {
     return {
+      categories: [],
+      filterCategory: '',
+      users: [],
+      filterAuthor: '',
+      tags: [],
+      filterTag: '',
+      searchString: '',
       posts: [],
       baseApiUrl: 'http://localhost:8000/api/posts',
       nCurrentPage: null,
@@ -2145,25 +2196,40 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
+    var _this = this;
+
     this.getData(this.baseApiUrl);
+    Axios.get(this.baseApiUrl).then(function (response) {
+      _this.categories = response.data.categories;
+      _this.users = response.data.users;
+      _this.tags = response.data.tags;
+    });
   },
   methods: {
     getData: function getData(url) {
-      var _this = this;
+      var _this2 = this;
 
       if (url) {
         Axios.get(url).then(function (response) {
-          _this.posts = response.data.results.data;
-          _this.nCurrentPage = response.data.results.current_page;
-          _this.selectedPage = _this.nCurrentPage;
-          _this.nLastPage = response.data.results.last_page;
-          _this.firstPageUrl = response.data.results.first_page_url;
-          _this.lastPageUrl = response.data.results.last_page_url;
-          _this.prevPageUrl = response.data.results.prev_page_url;
-          _this.nextPageUrl = response.data.results.next_page_url;
-          _this.totalPosts = response.data.results.total;
+          console.log(response);
+          _this2.posts = response.data.results.data;
+          _this2.nCurrentPage = response.data.results.current_page;
+          _this2.selectedPage = _this2.nCurrentPage;
+          _this2.nLastPage = response.data.results.last_page;
+          _this2.firstPageUrl = response.data.results.first_page_url;
+          _this2.lastPageUrl = response.data.results.last_page_url;
+          _this2.prevPageUrl = response.data.results.prev_page_url;
+          _this2.nextPageUrl = response.data.results.next_page_url;
+          _this2.totalPosts = response.data.results.total;
         });
       }
+    },
+    getFilteredData: function getFilteredData() {
+      var _this3 = this;
+
+      Axios.get(this.baseApiUrl + '?search=' + this.searchString + '&category=' + this.filterCategory + '&author=' + this.filterAuthor + '&tag=' + this.filterTag).then(function (response) {
+        _this3.posts = response.data.results.data;
+      });
     },
     // metodo che visualizza solo una parte del contenuto del post se il testo è troppo lungo
     getExcerpt: function getExcerpt(content) {
@@ -38821,6 +38887,256 @@ var render = function () {
       ]),
     ]),
     _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row mb-3" }, [
+        _c("div", { staticClass: "col" }, [
+          _c(
+            "form",
+            {
+              staticClass:
+                "row d-flex align-items-stretch bg-white border py-2 mb-5",
+              attrs: { method: "get" },
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.getData(
+                    _vm.baseApiUrl +
+                      "?search=" +
+                      _vm.searchString +
+                      "&category=" +
+                      _vm.filterCategory +
+                      "&author=" +
+                      _vm.filterAuthor +
+                      "&tag=" +
+                      _vm.filterTag
+                  )
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "col-3 mb-2" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-label mb-0",
+                    attrs: { for: "search-string" },
+                  },
+                  [_vm._v("Text to search:")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.searchString,
+                      expression: "searchString",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", id: "search-string", name: "search" },
+                  domProps: { value: _vm.searchString },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.searchString = $event.target.value
+                    },
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-2 mb-2" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-label mb-0",
+                    attrs: { for: "category" },
+                  },
+                  [_vm._v("Category:")]
+                ),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filterCategory,
+                        expression: "filterCategory",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: {
+                      "aria-label": "Default select example",
+                      name: "category",
+                      id: "category",
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterCategory = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { value: "", selected: "" } }, [
+                      _vm._v("Select a category"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.categories, function (category) {
+                      return _c(
+                        "option",
+                        { key: category.id, domProps: { value: category.id } },
+                        [
+                          _vm._v(
+                            _vm._s(category.id) +
+                              " - " +
+                              _vm._s(category.category)
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-2mb-2" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-label mb-0", attrs: { for: "author" } },
+                  [_vm._v("Author:")]
+                ),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filterAuthor,
+                        expression: "filterAuthor",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: {
+                      "aria-label": "Default select example",
+                      name: "author",
+                      id: "author",
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterAuthor = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { value: "", selected: "" } }, [
+                      _vm._v("Select an author"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.users, function (user) {
+                      return _c(
+                        "option",
+                        { key: user.id, domProps: { value: user.id } },
+                        [_vm._v(_vm._s(user.name))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-2 mb-2" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-label mb-0", attrs: { for: "tag" } },
+                  [_vm._v("Tag:")]
+                ),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.filterTag,
+                        expression: "filterTag",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: {
+                      "aria-label": "Default select example",
+                      name: "tag",
+                      id: "tag",
+                    },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterTag = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { value: "", selected: "" } }, [
+                      _vm._v("Select a tag"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.tags, function (tag) {
+                      return _c(
+                        "option",
+                        { key: tag.id, domProps: { value: tag.id } },
+                        [_vm._v(_vm._s(tag.name))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+              _vm._v(" "),
+              _vm._m(0),
+            ]
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row mb-3" },
@@ -38900,6 +39216,7 @@ var render = function () {
       _c("div", { staticClass: "col text-center" }, [
         _c("span", [
           _vm._v("Page\n                "),
+          _vm._v(" "),
           _c(
             "select",
             {
@@ -38929,7 +39246,17 @@ var render = function () {
                   },
                   function ($event) {
                     return _vm.getData(
-                      _vm.baseApiUrl + "?page=" + _vm.selectedPage
+                      _vm.baseApiUrl +
+                        "?search=" +
+                        _vm.searchString +
+                        "&category=" +
+                        _vm.filterCategory +
+                        "&author=" +
+                        _vm.filterAuthor +
+                        "&tag=" +
+                        _vm.filterTag +
+                        "?page=" +
+                        _vm.selectedPage
                     )
                   },
                 ],
@@ -38960,7 +39287,7 @@ var render = function () {
                 class: { disabled: _vm.nCurrentPage == 1 },
                 on: {
                   click: function ($event) {
-                    return _vm.getData(_vm.firstPageUrl)
+                    return _vm.getData(_vm.baseApiUrl + _vm.firstPageUrl)
                   },
                 },
               },
@@ -38974,7 +39301,7 @@ var render = function () {
                 class: { disabled: !_vm.prevPageUrl },
                 on: {
                   click: function ($event) {
-                    return _vm.getData(_vm.prevPageUrl)
+                    return _vm.getData(_vm.baseApiUrl + _vm.prevPageUrl)
                   },
                 },
               },
@@ -38988,7 +39315,7 @@ var render = function () {
                 class: { disabled: !_vm.nextPageUrl },
                 on: {
                   click: function ($event) {
-                    return _vm.getData(_vm.nextPageUrl)
+                    return _vm.getData(_vm.baseApiUrl + _vm.nextPageUrl)
                   },
                 },
               },
@@ -39002,7 +39329,7 @@ var render = function () {
                 class: { disabled: _vm.nCurrentPage == _vm.nLastPage },
                 on: {
                   click: function ($event) {
-                    return _vm.getData(_vm.lastPageUrl)
+                    return _vm.getData(_vm.baseApiUrl + _vm.lastPageUrl)
                   },
                 },
               },
@@ -39014,7 +39341,24 @@ var render = function () {
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "col-3 d-flex justify-content-between align-items-center",
+      },
+      [
+        _c("button", { staticClass: "btn btn-primary" }, [
+          _vm._v("Apply filters"),
+        ]),
+      ]
+    )
+  },
+]
 render._withStripped = true
 
 

@@ -6,6 +6,49 @@
                 <h5>Total posts: {{ totalPosts }}</h5>
             </div>
         </div>
+
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col">
+                    <form @submit.prevent="getData(baseApiUrl + '?search=' + searchString + '&category=' + filterCategory + '&author=' + filterAuthor + '&tag=' + filterTag)" method="get" class="row d-flex align-items-stretch bg-white border py-2 mb-5">
+                        <div class="col-3 mb-2">
+                            <label for="search-string" class="form-label mb-0">Text to search:</label>
+                            <input type="text" class="form-control" id="search-string" name="search" v-model="searchString">
+                        </div>
+
+                        <div class="col-2 mb-2">
+                            <label for="category" class="form-label mb-0">Category:</label><br>
+                            <select class="form-select" aria-label="Default select example" name="category" id="category" v-model="filterCategory">
+                                <option value="" selected>Select a category</option>
+                                <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.id }} - {{ category.category }}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-2mb-2">
+                            <label for="author" class="form-label mb-0">Author:</label><br>
+                            <select class="form-select" aria-label="Default select example" name="author" id="author" v-model="filterAuthor">
+                                <option value="" selected>Select an author</option>
+                                <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
+                            </select>
+                        </div>
+
+                        <!-- FIXME: filtro tag non funziona -->
+                        <div class="col-2 mb-2">
+                            <label for="tag" class="form-label mb-0">Tag:</label><br>
+                            <select class="form-select" aria-label="Default select example" name="tag" id="tag" v-model="filterTag">
+                                <option value="" selected>Select a tag</option>
+                                <option v-for="tag in tags" :key="tag.id" :value="tag.id">{{ tag.name }}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-3 d-flex justify-content-between align-items-center">
+                            <button class="btn btn-primary">Apply filters</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="row mb-3">
             <div class="col-12 mb-3" v-for="post in posts" :key="post.id">
                 <div class="card">
@@ -35,7 +78,8 @@
         <div class="row mb-3">
             <div class="col text-center">
                 <span>Page
-                    <select name="page" id="page" v-model="selectedPage" @change="getData(baseApiUrl + '?page=' + selectedPage)">
+                    <!-- FIXME: rivedere selezione pagina dopo aver applicato filtro -->
+                    <select name="page" id="page" v-model="selectedPage" @change="getData(baseApiUrl + '?search=' + searchString + '&category=' + filterCategory + '&author=' + filterAuthor + '&tag=' + filterTag + '?page=' + selectedPage)">
                         <option v-for="page in nLastPage" :key="page" :value="page">{{ page }}</option>
                     </select>
                     of {{ nLastPage }}
@@ -47,19 +91,19 @@
             <div class="col text-center">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item" :class="{disabled: nCurrentPage == 1}" @click="getData(firstPageUrl)">
+                        <li class="page-item" :class="{disabled: nCurrentPage == 1}" @click="getData(baseApiUrl + firstPageUrl)">
                             <a class="page-link">First</a>
                         </li>
 
-                        <li class="page-item" :class="{disabled: !prevPageUrl}" @click="getData(prevPageUrl)">
+                        <li class="page-item" :class="{disabled: !prevPageUrl}" @click="getData(baseApiUrl + prevPageUrl)">
                             <a class="page-link">Previous</a>
                         </li>
 
-                        <li class="page-item" :class="{disabled: !nextPageUrl}" @click="getData(nextPageUrl)">
+                        <li class="page-item" :class="{disabled: !nextPageUrl}" @click="getData(baseApiUrl + nextPageUrl)">
                             <a class="page-link">Next</a>
                         </li>
 
-                        <li class="page-item" :class="{disabled: nCurrentPage == nLastPage}" @click="getData(lastPageUrl)">
+                        <li class="page-item" :class="{disabled: nCurrentPage == nLastPage}" @click="getData(baseApiUrl + lastPageUrl)">
                             <a class="page-link">Last</a>
                         </li>
                     </ul>
@@ -74,6 +118,13 @@ export default {
     name: 'ContainerPosts',
     data() {
         return {
+            categories: [],
+            filterCategory: '',
+            users: [],
+            filterAuthor: '',
+            tags: [],
+            filterTag: '',
+            searchString: '',
             posts: [],
             baseApiUrl: 'http://localhost:8000/api/posts',
             nCurrentPage: null,
@@ -91,12 +142,20 @@ export default {
     },
     created() {
         this.getData(this.baseApiUrl);
+
+        Axios.get(this.baseApiUrl)
+            .then(response => {
+                this.categories = response.data.categories;
+                this.users = response.data.users;
+                this.tags = response.data.tags;
+            });
     },
     methods: {
         getData(url) {
             if (url) {
                 Axios.get(url)
                 .then(response => {
+                    console.log(response);
                     this.posts =  response.data.results.data;
                     this.nCurrentPage = response.data.results.current_page;
                     this.selectedPage = this.nCurrentPage;
@@ -108,6 +167,12 @@ export default {
                     this.totalPosts = response.data.results.total;
                 });
             }
+        },
+        getFilteredData() {
+            Axios.get(this.baseApiUrl + '?search=' + this.searchString + '&category=' + this.filterCategory + '&author=' + this.filterAuthor + '&tag=' + this.filterTag)
+                .then(response => {
+                    this.posts =  response.data.results.data;
+                });
         },
         // metodo che visualizza solo una parte del contenuto del post se il testo è troppo lungo
         getExcerpt(content) {
