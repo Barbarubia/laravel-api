@@ -37,7 +37,7 @@
                             <label for="tag" class="form-label mb-0">Tag:</label><br>
                             <select class="form-select" aria-label="Default select example" name="tag" id="tag" v-model="filterTag">
                                 <option value="" selected>Select a tag</option>
-                                <option v-for="tag in tags" :key="tag.id" :value="tag.id">{{ tag.name }}</option>
+                                <option v-for="tag in tags" :key="tag.id" :value="tag.name">{{ tag.name }}</option>
                             </select>
                         </div>
 
@@ -69,12 +69,7 @@
                 </div>
             </div>
         </div>
-        <!-- Numero pagina visualizzata -->
-        <!-- <div class="row">
-            <div class="col text-center">
-                <span>Page {{ nCurrentPage }} of {{ nLastPage }}</span>
-            </div>
-        </div> -->
+        <!-- Numero pagina visualizzata con selettore pagina -->
         <div class="row mb-3">
             <div class="col text-center">
                 <span>Page
@@ -154,7 +149,7 @@ export default {
             if (url) {
                 Axios.get(url)
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
                     this.posts =  response.data.results.data;
                     this.nCurrentPage = response.data.results.current_page;
                     this.selectedPage = this.nCurrentPage;

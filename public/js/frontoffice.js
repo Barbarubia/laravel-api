@@ -2165,11 +2165,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ContainerPosts',
   data: function data() {
@@ -2210,7 +2205,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (url) {
         Axios.get(url).then(function (response) {
-          console.log(response);
+          // console.log(response);
           _this2.posts = response.data.results.data;
           _this2.nCurrentPage = response.data.results.current_page;
           _this2.selectedPage = _this2.nCurrentPage;
@@ -39120,7 +39115,7 @@ var render = function () {
                     _vm._l(_vm.tags, function (tag) {
                       return _c(
                         "option",
-                        { key: tag.id, domProps: { value: tag.id } },
+                        { key: tag.id, domProps: { value: tag.name } },
                         [_vm._v(_vm._s(tag.name))]
                       )
                     }),
