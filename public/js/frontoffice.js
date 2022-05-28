@@ -2170,7 +2170,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ContainerPosts',
   data: function data() {
@@ -39216,7 +39215,6 @@ var render = function () {
       _c("div", { staticClass: "col text-center" }, [
         _c("span", [
           _vm._v("Page\n                "),
-          _vm._v(" "),
           _c(
             "select",
             {
@@ -39255,7 +39253,7 @@ var render = function () {
                         _vm.filterAuthor +
                         "&tag=" +
                         _vm.filterTag +
-                        "?page=" +
+                        "&page=" +
                         _vm.selectedPage
                     )
                   },

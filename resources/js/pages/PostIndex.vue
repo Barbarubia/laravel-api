@@ -78,8 +78,7 @@
         <div class="row mb-3">
             <div class="col text-center">
                 <span>Page
-                    <!-- FIXME: rivedere selezione pagina dopo aver applicato filtro -->
-                    <select name="page" id="page" v-model="selectedPage" @change="getData(baseApiUrl + '?search=' + searchString + '&category=' + filterCategory + '&author=' + filterAuthor + '&tag=' + filterTag + '?page=' + selectedPage)">
+                    <select name="page" id="page" v-model="selectedPage" @change="getData(baseApiUrl + '?search=' + searchString + '&category=' + filterCategory + '&author=' + filterAuthor + '&tag=' + filterTag + '&page=' + selectedPage)">
                         <option v-for="page in nLastPage" :key="page" :value="page">{{ page }}</option>
                     </select>
                     of {{ nLastPage }}
