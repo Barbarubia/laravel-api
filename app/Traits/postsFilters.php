@@ -24,6 +24,7 @@ trait postsFilters {
             $postsQuery->where('user_id', $request->author);
         }
 
+        // FIXME: filtro per tags non funziona
         if ($request->tags) {
             $tags = $request->tags;
             foreach ($tags as $tag) {

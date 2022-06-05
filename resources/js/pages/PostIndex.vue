@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row mb-3">
                 <div class="col">
-                    <form @submit.prevent="getData(baseApiUrl + '?search=' + searchString + '&category=' + filterCategory + '&author=' + filterAuthor + '&tag=' + filterTag)" method="get" class="row d-flex align-items-stretch bg-white border py-2 mb-5">
+                    <form @submit.prevent="getData(baseApiUrl + '?search=' + searchString + '&category=' + filterCategory + '&author=' + filterAuthor + '&tag=' + filterTag)" class="row d-flex bg-white border py-2 mb-5">
                         <div class="col-3 mb-2">
                             <label for="search-string" class="form-label mb-0">Text to search:</label>
                             <input type="text" class="form-control" id="search-string" name="search" v-model="searchString">
@@ -34,8 +34,8 @@
 
                         <!-- FIXME: filtro tag non funziona -->
                         <div class="col-2 mb-2">
-                            <label for="tag" class="form-label mb-0">Tag:</label><br>
-                            <select class="form-select" aria-label="Default select example" name="tag" id="tag" v-model="filterTag">
+                            <label for="tags" class="form-label mb-0">Tag:</label><br>
+                            <select class="form-select" aria-label="Default select example" name="tags" id="tags" v-model="filterTag">
                                 <option value="" selected>Select a tag</option>
                                 <option v-for="tag in tags" :key="tag.id" :value="tag.name">{{ tag.name }}</option>
                             </select>
@@ -149,7 +149,7 @@ export default {
             if (url) {
                 Axios.get(url)
                 .then(response => {
-                    // console.log(response);
+                    console.log(response);
                     this.posts =  response.data.results.data;
                     this.nCurrentPage = response.data.results.current_page;
                     this.selectedPage = this.nCurrentPage;
@@ -161,12 +161,6 @@ export default {
                     this.totalPosts = response.data.results.total;
                 });
             }
-        },
-        getFilteredData() {
-            Axios.get(this.baseApiUrl + '?search=' + this.searchString + '&category=' + this.filterCategory + '&author=' + this.filterAuthor + '&tag=' + this.filterTag)
-                .then(response => {
-                    this.posts =  response.data.results.data;
-                });
         },
         // metodo che visualizza solo una parte del contenuto del post se il testo è troppo lungo
         getExcerpt(content) {

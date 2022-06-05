@@ -2205,7 +2205,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (url) {
         Axios.get(url).then(function (response) {
-          // console.log(response);
+          console.log(response);
           _this2.posts = response.data.results.data;
           _this2.nCurrentPage = response.data.results.current_page;
           _this2.selectedPage = _this2.nCurrentPage;
@@ -2217,13 +2217,6 @@ __webpack_require__.r(__webpack_exports__);
           _this2.totalPosts = response.data.results.total;
         });
       }
-    },
-    getFilteredData: function getFilteredData() {
-      var _this3 = this;
-
-      Axios.get(this.baseApiUrl + '?search=' + this.searchString + '&category=' + this.filterCategory + '&author=' + this.filterAuthor + '&tag=' + this.filterTag).then(function (response) {
-        _this3.posts = response.data.results.data;
-      });
     },
     // metodo che visualizza solo una parte del contenuto del post se il testo è troppo lungo
     getExcerpt: function getExcerpt(content) {
@@ -38887,9 +38880,7 @@ var render = function () {
           _c(
             "form",
             {
-              staticClass:
-                "row d-flex align-items-stretch bg-white border py-2 mb-5",
-              attrs: { method: "get" },
+              staticClass: "row d-flex bg-white border py-2 mb-5",
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
@@ -39069,7 +39060,7 @@ var render = function () {
               _c("div", { staticClass: "col-2 mb-2" }, [
                 _c(
                   "label",
-                  { staticClass: "form-label mb-0", attrs: { for: "tag" } },
+                  { staticClass: "form-label mb-0", attrs: { for: "tags" } },
                   [_vm._v("Tag:")]
                 ),
                 _c("br"),
@@ -39088,8 +39079,8 @@ var render = function () {
                     staticClass: "form-select",
                     attrs: {
                       "aria-label": "Default select example",
-                      name: "tag",
-                      id: "tag",
+                      name: "tags",
+                      id: "tags",
                     },
                     on: {
                       change: function ($event) {
