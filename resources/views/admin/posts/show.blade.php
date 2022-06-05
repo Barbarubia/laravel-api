@@ -52,6 +52,9 @@
         </div>
         <div class="row">
             <div class="col">
+                @if ($post['post_image'] != null)
+                    <img class="img-fluid mb-3" src=" {{ asset('storage/' . $post->post_image) }}" alt="{{ $post->title }}">
+                @endif
                 @if ($post['image'] != null)
                     <img class="mb-3" src="{{ $post->image }}" alt="{{ $post->title }}">
                 @endif

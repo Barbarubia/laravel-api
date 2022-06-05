@@ -6,7 +6,7 @@
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col">
-                <form method="POST" action="{{ route('admin.posts.store') }}">
+                <form method="POST" enctype="multipart/form-data" action="{{ route('admin.posts.store') }}">
                     @csrf
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
@@ -41,6 +41,13 @@
                         <label for="tags" class="form-label">Tags - Put a # before the tags. Ex: #hello #world</label>
                         <input type="text" class="form-control" id="tags" name="tags" value="{{ old('tags') }}">
                         @error('tags')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="post_image" name="post_image" class="form-label">Upload Image:</label>
+                        <input class="form-control" type="file" id="post_image" name="post_image" accept="image/*">
+                        @error('post_phpimage')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>

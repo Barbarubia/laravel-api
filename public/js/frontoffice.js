@@ -2294,6 +2294,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostShow',
   props: ['slug'],
@@ -39432,6 +39433,13 @@ var render = function () {
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col" }, [
+        _vm.post.post_image != null
+          ? _c("img", {
+              staticClass: "img-fluid mb-3",
+              attrs: { src: _vm.post.url_image, alt: _vm.post.title },
+            })
+          : _vm._e(),
+        _vm._v(" "),
         _vm.post.image != null
           ? _c("img", {
               staticClass: "mb-3",

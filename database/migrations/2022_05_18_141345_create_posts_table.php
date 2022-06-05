@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->unsignedBigInteger('category_id');  // FK per collegamento con tabella Categories
             $table->string('title', 100);
             $table->string('image', 250)->nullable();
+            $table->string('post_image')->nullable();
             $table->text('content');
             $table->string('slug', 105)->unique();
             $table->timestamps();

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -79,10 +80,15 @@ class PostController extends Controller
         // Validazione dei dati inseriti
         $request->validate($this->validationParameters);
 
+        $data = $request->all();
+
+        $img_path = Storage::put('uploads', $data['post_image']);
+
         // Variabile inputForm per richiedere tutti i dati inseriti nel form della pagina posts.create
-        $inputForm = $request->all() + [
-            'user_id' => Auth::user()->id
-        ];
+        $inputForm = [
+            'user_id'       => Auth::user()->id,
+            'post_image'    => $img_path
+        ] + $data;
 
         // Attribuzione tags già esistenti o generazione nuovi tags se non esistenti
         preg_match_all('/#(\S*)/', $inputForm['tags'], $newTags);

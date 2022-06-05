@@ -39,6 +39,7 @@
         </div>
         <div class="row">
             <div class="col">
+                <img v-if="post.post_image != null" class="img-fluid mb-3" :src="post.url_image" :alt="post.title">
                 <img v-if="post.image != null" class="mb-3" :src="post.image" :alt="post.title">
 
                 <p>{{ post.content }}</p>
