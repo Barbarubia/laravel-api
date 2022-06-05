@@ -6,7 +6,7 @@
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col">
-                <form method="POST" action="{{ route('admin.posts.update', $post->slug) }}">
+                <form method="POST" enctype="multipart/form-data" action="{{ route('admin.posts.update', $post->slug) }}">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -43,6 +43,20 @@
                         <label for="tags" class="form-label">Tags - Put a # before the tags. Ex: #hello #world</label>
                         <input type="text" class="form-control" id="tags" name="tags" value="{{ old('tags', '#' . implode(' #', $post->tags->pluck('name')->all())) }}">
                         @error('tags')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="post_image" name="post_image" class="form-label">Upload Image:</label>
+                        <input class="form-control" type="file" id="post_image" name="post_image" accept="image/*">
+                        @if ($post->post_image != null)
+                            <div class="row mt-3">
+                                <div class="col-4">
+                                    <img class="img-fluid" src="{{ asset('storage/' . $post->post_image) }}" alt="{{ $post->title }}">
+                                </div>
+                            </div>
+                        @endif
+                        @error('post_image')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>

@@ -183,6 +183,14 @@ class PostController extends Controller
 
         $inputForm['tags'] = $tagIds;
 
+        if (array_key_exists('post_image', $inputForm)) {
+            Storage::delete($post->post_image);
+            $img_path = Storage::put('uploads', $inputForm['post_image']);
+            $inputForm = [
+                'post_image' => $img_path
+            ] + $inputForm;
+        }
+
         $post->update($inputForm);
         // prima cancello i tags già presenti
         $post->tags()->detach();

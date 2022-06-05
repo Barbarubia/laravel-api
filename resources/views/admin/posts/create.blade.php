@@ -47,7 +47,7 @@
                     <div class="mb-3">
                         <label for="post_image" name="post_image" class="form-label">Upload Image:</label>
                         <input class="form-control" type="file" id="post_image" name="post_image" accept="image/*">
-                        @error('post_phpimage')
+                        @error('post_image')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
